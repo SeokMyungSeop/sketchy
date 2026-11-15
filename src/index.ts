@@ -49,7 +49,11 @@ if (values.http) {
     exports: dialogSink(),
     opener: systemOpener(),
     // Clients without MCP Apps get each drawing as an interactive HTML file.
-    standalone: standaloneFiles(join(dataDir, "exports"), setting("SKETCHY_OPEN") === "1"),
+    // A host that can only show files inside its own folder names that folder.
+    standalone: standaloneFiles(
+      setting("SKETCHY_STANDALONE_DIR") ?? join(dataDir, "exports"),
+      setting("SKETCHY_OPEN") === "1",
+    ),
     // Set by the Claude Code plugin, which draws each result in the terminal
     // and links the interactive page.
     terminal:

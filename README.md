@@ -226,14 +226,15 @@ Measured on November 2, 2026 in Claude Code with an empty project. Run it yourse
 
 ## Configuration
 
-| Variable             | Default       | Description                                                                       |
-| -------------------- | ------------- | --------------------------------------------------------------------------------- |
-| `SKETCHY_EDITOR`     | `vscode`      | Editor for file links: `vscode`, `cursor`, `windsurf`, `vscode-insiders`, `zed`   |
-| `SKETCHY_PHOTOS`     | `on`          | `off` disables photo search and labeling                                          |
-| `SKETCHY_DATA_DIR`   | `~/.sketchy`  | Models, cached photos and the local SQLite database                               |
-| `SKETCHY_EXPORT_DIR` | `~/Downloads` | Folder the save dialog opens in, and where exports go when no dialog is available |
-| `SKETCHY_FORMAT`     | `compact`     | `json` restores the JSON scene tools of earlier versions                          |
-| `SKETCHY_OPEN`       | off           | `1` opens drawings in the browser in clients without MCP Apps                     |
+| Variable                 | Default              | Description                                                                       |
+| ------------------------ | -------------------- | --------------------------------------------------------------------------------- |
+| `SKETCHY_EDITOR`         | `vscode`             | Editor for file links: `vscode`, `cursor`, `windsurf`, `vscode-insiders`, `zed`   |
+| `SKETCHY_PHOTOS`         | `on`                 | `off` disables photo search and labeling                                          |
+| `SKETCHY_DATA_DIR`       | `~/.sketchy`         | Models, cached photos and the local SQLite database                               |
+| `SKETCHY_EXPORT_DIR`     | `~/Downloads`        | Folder the save dialog opens in, and where exports go when no dialog is available |
+| `SKETCHY_FORMAT`         | `compact`            | `json` restores the JSON scene tools of earlier versions                          |
+| `SKETCHY_OPEN`           | off                  | `1` opens drawings in the browser in clients without MCP Apps                     |
+| `SKETCHY_STANDALONE_DIR` | `<data dir>/exports` | Folder for the HTML drawings saved in clients without MCP Apps                    |
 
 ## Development
 

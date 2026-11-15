@@ -53,6 +53,16 @@ async function sketch(
   return { text: (result.content[0] as { text: string }).text, saved };
 }
 
+describe("slug", () => {
+  it("keeps the words of a Korean title", async () => {
+    const { slug } = await import("../src/standalone.js");
+    expect(slug("업무 처리 절차")).toBe("업무-처리-절차");
+    expect(slug("국비·시비 매칭!")).toBe("국비시비-매칭");
+    expect(slug("Hello, World")).toBe("hello-world");
+    expect(slug("···")).toBe("sketch");
+  });
+});
+
 describe("clients without MCP Apps", () => {
   it("get the drawing as an HTML file and an honest reply", async () => {
     const dir = await mkdtemp(join(tmpdir(), "sketchy-standalone-"));

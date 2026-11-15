@@ -4,7 +4,7 @@
   --paper: #fffdf7;
   --line: #e7e2d6;
   --accent: #e8452c;
-  --font: Kalam, "Comic Sans MS", cursive;
+  --font: Kalam, "Sketchy Hangul", "Comic Sans MS", cursive;
   color-scheme: light;
 }
 
@@ -384,7 +384,7 @@ button:disabled {
   flex-wrap: wrap;
   gap: 6px 22px;
   padding: 8px 14px 4px;
-  font-family: Kalam, "Comic Sans MS", cursive;
+  font-family: Kalam, "Sketchy Hangul", "Comic Sans MS", cursive;
   font-size: 17px;
   color: #1a5fb4;
 }

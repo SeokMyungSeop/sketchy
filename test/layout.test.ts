@@ -20,6 +20,19 @@ function build(sample: keyof typeof SAMPLES): SceneBuilder {
   return builder;
 }
 
+describe("Hangul text width", () => {
+  it("follows the vowel: upright vowels are wide, flat ones narrow", async () => {
+    const { charWidthEm, textWidth } = await import("../src/layout/text.js");
+    expect(charWidthEm("가")).toBeGreaterThan(charWidthEm("구"));
+    expect(charWidthEm("ㄱ")).toBeGreaterThan(charWidthEm("가"));
+    // The nine syllables advance 5.22em in Nanum Pen Script, 6.26em at the
+    // viewer's scale; the three spaces come on top.
+    const width = textWidth("국비와 시비 매칭 비율", 10) - 3 * charWidthEm(" ") * 10;
+    expect(width).toBeGreaterThan(62.6 * 0.95);
+    expect(width).toBeLessThan(62.6 * 1.15);
+  });
+});
+
 describe("layoutScene", () => {
   it("places ten connected nodes without overlap", async () => {
     const b = new SceneBuilder(parts);

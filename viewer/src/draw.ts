@@ -2,7 +2,7 @@ import rough from "roughjs";
 import type { RoughSVG } from "roughjs/bin/svg.js";
 import type { Options } from "roughjs/bin/core.js";
 import type { Point } from "../../src/scene/laid-out.js";
-import { FONT_FAMILY } from "../../src/style/metrics.js";
+import { FONT_FAMILY, HANGUL_FONT_FAMILY } from "../../src/style/metrics.js";
 import { lineTops } from "../../src/layout/text.js";
 import { layoutLabel } from "../../src/math/inline.js";
 import { INK } from "./palette.js";
@@ -60,7 +60,7 @@ export type TextOptions = {
   fit?: number;
 };
 
-export const FONT_STACK = `${FONT_FAMILY}, "Comic Sans MS", cursive`;
+export const FONT_STACK = `${FONT_FAMILY}, "${HANGUL_FONT_FAMILY}", "Comic Sans MS", cursive`;
 
 /**
  * Multi-line text whose first baseline sits one line below `y`. Lines with

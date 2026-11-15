@@ -2,12 +2,22 @@ import regular from "@fontsource/kalam/files/kalam-latin-400-normal.woff2?inline
 import bold from "@fontsource/kalam/files/kalam-latin-700-normal.woff2?inline";
 import regularExt from "@fontsource/kalam/files/kalam-latin-ext-400-normal.woff2?inline";
 import boldExt from "@fontsource/kalam/files/kalam-latin-ext-700-normal.woff2?inline";
-import { FONT_FAMILY } from "../../src/style/metrics.js";
+import hangul from "@fontsource/nanum-pen-script/files/nanum-pen-script-korean-400-normal.woff2?inline";
+import { FONT_FAMILY, HANGUL_FONT_FAMILY, HANGUL_SCALE } from "../../src/style/metrics.js";
 
 const LATIN =
   "U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2190-21FF, U+2212, U+2215";
 const LATIN_EXT =
   "U+0100-02AF, U+0304, U+0308, U+0329, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF";
+
+/** Hangul syllables and single consonants and vowels; everything else stays with Kalam. */
+const HANGUL = "U+1100-11FF, U+3130-318F, U+AC00-D7A3";
+
+/**
+ * Nanum Pen Script (SIL OFL) draws Hangul. It has one weight, so the browser
+ * synthesizes bold Hangul.
+ */
+const HANGUL_CSS = `@font-face{font-family:"${HANGUL_FONT_FAMILY}";font-style:normal;font-weight:400;font-display:block;src:url(${hangul}) format("woff2");unicode-range:${HANGUL};size-adjust:${HANGUL_SCALE * 100}%;}`;
 
 /**
  * Kalam (SIL OFL) is embedded as data URLs: the viewer runs sandboxed
@@ -23,4 +33,5 @@ export const FONT_CSS = [
     ([src, weight, range]) =>
       `@font-face{font-family:"${FONT_FAMILY}";font-style:normal;font-weight:${weight};font-display:block;src:url(${src}) format("woff2");unicode-range:${range};}`,
   )
+  .concat(HANGUL_CSS)
   .join("\n");

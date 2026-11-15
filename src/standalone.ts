@@ -27,18 +27,33 @@ export function standaloneFiles(dir: string, open = false): StandaloneSink {
     const template = await readFile(STANDALONE_URL, "utf8");
     await mkdir(dir, { recursive: true });
     const stamp = new Date().toISOString().replace(/[:.]/g, "-").slice(0, 19);
-    const path = join(dir, `${slug(scene.title?.lines.join(" "))}-${stamp}.html`);
-    await writeFile(path, embedScene(template, scene));
+    const name = `${slug(scene.title?.lines.join(" "))}-${stamp}`;
+    const path = await writeNew(dir, name, embedScene(template, scene));
     if (open) openInBrowser(path);
     return path;
   };
 }
 
-function slug(text: string | undefined): string {
+/** Two drawings in the same second, or with the same title, each keep their file. */
+async function writeNew(dir: string, name: string, html: string): Promise<string> {
+  for (let n = 1; ; n++) {
+    const path = join(dir, `${name}${n === 1 ? "" : `-${n}`}.html`);
+    try {
+      await writeFile(path, html, { flag: "wx" });
+      return path;
+    } catch (error) {
+      if ((error as NodeJS.ErrnoException).code !== "EEXIST" || n > 999) throw error;
+    }
+  }
+}
+
+/** A file name from the title, in any script: a Korean title keeps its words. */
+export function slug(text: string | undefined): string {
   const s = (text ?? "sketch")
     .toLowerCase()
-    .normalize("NFKD")
-    .replace(/[^\w\s-]/g, "")
+    // Composed form: the decomposed one splits Hangul into single letters.
+    .normalize("NFKC")
+    .replace(/[^\p{L}\p{N}\s_-]/gu, "")
     .trim()
     .replace(/[\s_]+/g, "-")
     .slice(0, 60);
