@@ -21,15 +21,15 @@ function build(sample: keyof typeof SAMPLES): SceneBuilder {
 }
 
 describe("Hangul text width", () => {
-  it("follows the vowel: upright vowels are wide, flat ones narrow", async () => {
+  it("gives every syllable the same roomy advance", async () => {
     const { charWidthEm, textWidth } = await import("../src/layout/text.js");
-    expect(charWidthEm("가")).toBeGreaterThan(charWidthEm("구"));
-    expect(charWidthEm("ㄱ")).toBeGreaterThan(charWidthEm("가"));
-    // The nine syllables advance 5.22em in Nanum Pen Script, 6.26em at the
-    // viewer's scale; the three spaces come on top.
+    expect(charWidthEm("가")).toBe(charWidthEm("구"));
+    expect(charWidthEm("가")).toBeGreaterThan(charWidthEm("ㄱ"));
+    // The nine syllables advance 7.38em in Gaegu, 8.49em at the viewer's
+    // scale; the three spaces come on top.
     const width = textWidth("국비와 시비 매칭 비율", 10) - 3 * charWidthEm(" ") * 10;
-    expect(width).toBeGreaterThan(62.6 * 0.95);
-    expect(width).toBeLessThan(62.6 * 1.15);
+    expect(width).toBeGreaterThanOrEqual(84.9);
+    expect(width).toBeLessThan(84.9 * 1.15);
   });
 });
 

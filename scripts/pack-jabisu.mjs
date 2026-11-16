@@ -28,8 +28,8 @@ cpSync(join(root, "dist"), join(stage, "dist"), {
 for (const file of ["parts.json", "viewer.html", "standalone.html"])
   cpSync(join(root, "build", file), join(stage, "build", file));
 cpSync(
-  join(root, "node_modules", "@fontsource", "nanum-pen-script", "LICENSE"),
-  join(stage, "LICENSE.nanum-pen-script"),
+  join(root, "node_modules", "@fontsource", "gaegu", "LICENSE"),
+  join(stage, "LICENSE.gaegu"),
 );
 cpSync(join(root, "node_modules", "@fontsource", "kalam", "LICENSE"), join(stage, "LICENSE.kalam"));
 

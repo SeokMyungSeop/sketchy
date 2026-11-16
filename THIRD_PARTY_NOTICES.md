@@ -11,7 +11,7 @@ works, which keep their own licenses.
 | [elkjs](https://github.com/kieler/elkjs)                                                   | Automatic layout and edge routing | EPL-2.0                   |
 | [Rough.js](https://github.com/rough-stuff/rough)                                           | Hand-drawn rendering              | MIT                       |
 | [Kalam](https://fonts.google.com/specimen/Kalam) by Indian Type Foundry                    | Handwriting font                  | SIL Open Font License 1.1 |
-| [Nanum Pen Script](https://fonts.google.com/specimen/Nanum+Pen+Script) by Sandoll, © NAVER | Handwriting font for Hangul       | SIL Open Font License 1.1 |
+| [Gaegu](https://fonts.google.com/specimen/Gaegu), © The Gaegu Project Authors | Handwriting font for Hangul       | SIL Open Font License 1.1 |
 | [Lucide](https://lucide.dev) via Iconify                                                   | Icons                             | ISC                       |
 | [Simple Icons](https://simpleicons.org) via Iconify                                        | Technology logos                  | CC0 1.0                   |
 | [sql.js](https://github.com/sql-js/sql.js)                                                 | SQLite (WebAssembly)              | MIT                       |

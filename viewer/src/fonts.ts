@@ -2,7 +2,8 @@ import regular from "@fontsource/kalam/files/kalam-latin-400-normal.woff2?inline
 import bold from "@fontsource/kalam/files/kalam-latin-700-normal.woff2?inline";
 import regularExt from "@fontsource/kalam/files/kalam-latin-ext-400-normal.woff2?inline";
 import boldExt from "@fontsource/kalam/files/kalam-latin-ext-700-normal.woff2?inline";
-import hangul from "@fontsource/nanum-pen-script/files/nanum-pen-script-korean-400-normal.woff2?inline";
+import hangul from "@fontsource/gaegu/files/gaegu-korean-400-normal.woff2?inline";
+import hangulBold from "@fontsource/gaegu/files/gaegu-korean-700-normal.woff2?inline";
 import { FONT_FAMILY, HANGUL_FONT_FAMILY, HANGUL_SCALE } from "../../src/style/metrics.js";
 
 const LATIN =
@@ -14,10 +15,18 @@ const LATIN_EXT =
 const HANGUL = "U+1100-11FF, U+3130-318F, U+AC00-D7A3";
 
 /**
- * Nanum Pen Script (SIL OFL) draws Hangul. It has one weight, so the browser
- * synthesizes bold Hangul.
+ * Gaegu (SIL OFL) draws Hangul, in the two weights Kalam has, so bold Hangul
+ * is drawn rather than synthesized.
  */
-const HANGUL_CSS = `@font-face{font-family:"${HANGUL_FONT_FAMILY}";font-style:normal;font-weight:400;font-display:block;src:url(${hangul}) format("woff2");unicode-range:${HANGUL};size-adjust:${HANGUL_SCALE * 100}%;}`;
+const HANGUL_CSS = [
+  [hangul, 400],
+  [hangulBold, 700],
+]
+  .map(
+    ([src, weight]) =>
+      `@font-face{font-family:"${HANGUL_FONT_FAMILY}";font-style:normal;font-weight:${weight};font-display:block;src:url(${src}) format("woff2");unicode-range:${HANGUL};size-adjust:${HANGUL_SCALE * 100}%;}`,
+  )
+  .join("\n");
 
 /**
  * Kalam (SIL OFL) is embedded as data URLs: the viewer runs sandboxed

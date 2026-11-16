@@ -1,7 +1,7 @@
 {
   "name": "@ddkbs/sketchy",
   "mcpName": "io.github.ddkbs/sketchy",
-  "version": "0.2.0-jabisu.2",
+  "version": "0.2.0-jabisu.3",
   "description": "Lets your AI assistant draw while it explains: hand-drawn, interactive diagrams, circuits and labeled photos in the Claude chat, Claude Code, Cursor and VS Code.",
   "type": "module",
   "license": "MIT",
@@ -52,8 +52,8 @@
   "devDependencies": {
     "@anthropic-ai/mcpb": "^2.1.2",
     "@fontsource/caveat": "^5.3.0",
+    "@fontsource/gaegu": "^5.3.0",
     "@fontsource/kalam": "^5.3.0",
-    "@fontsource/nanum-pen-script": "^5.3.0",
     "@happy-dom/global-registrator": "^21.0.4",
     "@huggingface/transformers": "^4.3.2",
     "@types/d3-geo": "^3.1.1",

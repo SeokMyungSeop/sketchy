@@ -3,7 +3,7 @@
  *
  * Widths are per-character estimates in em for Kalam, rounded up slightly so
  * boxes err on the roomy side; the viewer shrinks text that still overflows.
- * Hangul is measured for Nanum Pen Script, which draws it.
+ * Hangul is measured for Gaegu, which draws it.
  */
 
 import { extraHeight, labelWidth } from "../math/inline.js";
@@ -13,21 +13,17 @@ const NARROW = new Set([..."il.,:;'|!`()[]{}/\\ "]);
 const WIDE = new Set([..."mwMW@%&"]);
 
 /**
- * Advance of a Hangul syllable in Nanum Pen Script, by its vowel: the font is
- * proportional, and the vowel decides the shape. Upright vowels (ㅏ, ㅣ) make
- * wide syllables, flat ones (ㅗ, ㅜ, ㅡ) narrow ones. Each value is the mean of
- * the 2,350 common syllables with that vowel, rounded up.
+ * Advance of a Hangul syllable in Gaegu. Its syllables run from 0.82em to
+ * 0.92em whatever their shape, in both weights; the widest is used, so boxes
+ * err on the roomy side.
  */
-const SYLLABLE_EM = [
-  0.75, 0.77, 0.78, 0.74, 0.71, 0.77, 0.76, 0.83, 0.51, 0.75, 0.77, 0.65, 0.51, 0.51, 0.68, 0.76,
-  0.64, 0.5, 0.5, 0.64, 0.64,
-];
+const SYLLABLE_EM = 0.92;
 /** Single consonants and vowels (ㄱ, ㅏ) all take the same advance. */
-const JAMO_EM = 0.94;
+const JAMO_EM = 0.82;
 
 function hangulWidthEm(code: number): number | undefined {
   if (code >= 0xac00 && code <= 0xd7a3) {
-    return SYLLABLE_EM[Math.floor((code - 0xac00) / 28) % 21]! * HANGUL_SCALE;
+    return SYLLABLE_EM * HANGUL_SCALE;
   }
   if ((code >= 0x3131 && code <= 0x318e) || (code >= 0x1100 && code <= 0x11ff)) {
     return JAMO_EM * HANGUL_SCALE;
