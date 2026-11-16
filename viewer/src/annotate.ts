@@ -1,6 +1,7 @@
 import type { LaidOutScene, Point, Rect } from "../../src/scene/laid-out.js";
 import { el, text } from "./draw.js";
 import { HIGHLIGHT, MARKER } from "./palette.js";
+import { t } from "./strings.js";
 
 /**
  * Drawing mode: the user marks up a drawing with a red pen, a highlighter and
@@ -142,7 +143,7 @@ export function createAnnotator(svg: SVGSVGElement, frame: HTMLElement): Annotat
     const box = frame.getBoundingClientRect();
     const input = document.createElement("input");
     input.className = "note-input";
-    input.placeholder = "Note…";
+    input.placeholder = t("note");
     input.style.left = `${event.clientX - box.left}px`;
     input.style.top = `${event.clientY - box.top - 14}px`;
     frame.appendChild(input);

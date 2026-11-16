@@ -1,5 +1,6 @@
 import type { LaidOutScene } from "../../src/scene/laid-out.js";
 import { mountScene } from "./scene-view.js";
+import { t } from "./strings.js";
 import "./styles.css";
 
 // Standalone page: the laid-out scene is embedded in the HTML, so the drawing
@@ -27,5 +28,5 @@ if (scene) {
     },
   });
 } else {
-  root.textContent = "No drawing embedded.";
+  root.textContent = t("empty");
 }

@@ -3,6 +3,7 @@ import type { CallToolResult } from "@modelcontextprotocol/sdk/types.js";
 import type { LaidOutScene } from "../../src/scene/laid-out.js";
 import { mountScene, type Host } from "./scene-view.js";
 import { mountModelPicker, type ModelPickerData } from "./model-picker.js";
+import { t } from "./strings.js";
 import "./styles.css";
 
 const SCENE_META_KEY = "sketchy/scene";
@@ -43,10 +44,7 @@ const host: Host = {
     const result = saved?.structuredContent as { path?: string; cancelled?: boolean } | undefined;
     if (result?.cancelled) return;
     const path = result?.path;
-    notice(
-      frame,
-      saved && !saved.isError && path ? `Saved to ${path}` : "Export is not available here.",
-    );
+    notice(frame, saved && !saved.isError && path ? t("saved", { path }) : t("noExport"));
   },
   async ask({ text, image }) {
     const caps = app.getHostCapabilities();
@@ -110,7 +108,7 @@ async function show(result: CallToolResult): Promise<void> {
       .catch(() => undefined);
     data = fetched?.isError ? undefined : (fetched?.structuredContent as ViewData | undefined);
     if (!data) {
-      message("Sketchy could not load this drawing.");
+      message(t("noLoad"));
       return;
     }
   }
@@ -125,7 +123,7 @@ async function show(result: CallToolResult): Promise<void> {
   } else if (data?.kind === "model-picker") {
     mountModelPicker(root, data, app);
   } else if (result.isError) {
-    message("Sketchy could not draw this.");
+    message(t("noDraw"));
   }
 }
 
@@ -155,7 +153,7 @@ function applyContext(): void {
   );
 }
 
-message("Sketching…");
+message(t("sketching"));
 app.ontoolresult = (result) => void show(result as CallToolResult);
 app.onhostcontextchanged = () => applyContext();
 await app.connect();

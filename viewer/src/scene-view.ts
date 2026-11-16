@@ -9,6 +9,7 @@ import { el, mathLine } from "./draw.js";
 import { layoutLabel, splitMath } from "../../src/math/inline.js";
 import { fmtValue } from "../../src/figures/plot.js";
 import { INK } from "./palette.js";
+import { t } from "./strings.js";
 
 /** What the view needs from its surroundings (the MCP host or a dev page). */
 export interface Host {
@@ -66,26 +67,26 @@ function toolbar(
   frame: HTMLElement,
 ): HTMLElement {
   const bar = div("toolbar");
-  bar.append(button("✎ Draw", "Draw on the sketch", () => setDrawing(frame, true)));
+  bar.append(button(t("draw"), t("drawTitle"), () => setDrawing(frame, true)));
   const name = slug(scene.title?.lines.join(" "));
   const download = host.download?.bind(host);
   if (download)
     bar.append(
-      button("SVG", "Download as SVG", async () => {
+      button("SVG", t("svgTitle"), async () => {
         await download({
           name: `${name}.svg`,
           mimeType: "image/svg+xml",
           text: toSvgString(rendered.svg),
         });
       }),
-      button("PNG", "Download as PNG", async () => {
+      button("PNG", t("pngTitle"), async () => {
         await download({
           name: `${name}.png`,
           mimeType: "image/png",
           base64: await toPngBase64(rendered.svg),
         });
       }),
-      button("Excalidraw", "Download for Excalidraw", async () => {
+      button("Excalidraw", t("excalidrawTitle"), async () => {
         await download({
           name: `${name}.excalidraw`,
           mimeType: "application/json",
@@ -94,7 +95,7 @@ function toolbar(
       }),
     );
   if (host.toggleFullscreen) {
-    bar.append(button("⤢", "Toggle fullscreen", () => host.toggleFullscreen!()));
+    bar.append(button("⤢", t("fullscreen"), () => host.toggleFullscreen!()));
   }
   return bar;
 }
@@ -106,10 +107,10 @@ function setDrawing(frame: HTMLElement, on: boolean): void {
 }
 
 const TOOLS: { tool: Tool; label: string; title: string }[] = [
-  { tool: "pen", label: "Pen", title: "Red pen" },
-  { tool: "marker", label: "Marker", title: "Highlighter" },
-  { tool: "text", label: "Text", title: "Write a note: click where it goes" },
-  { tool: "eraser", label: "Eraser", title: "Erase marks: click or drag over them" },
+  { tool: "pen", label: t("pen"), title: t("penTitle") },
+  { tool: "marker", label: t("marker"), title: t("markerTitle") },
+  { tool: "text", label: t("text"), title: t("textTitle") },
+  { tool: "eraser", label: t("eraser"), title: t("eraserTitle") },
 ];
 
 /** The drawing tools, shown while drawing mode is on. */
@@ -130,9 +131,9 @@ function drawbar(
     b.dataset.tool = tool;
     return b;
   });
-  const undo = button("Undo", "Undo (Ctrl+Z)", () => annotator.undo());
-  const clear = button("Clear", "Remove all marks", () => annotator.clear());
-  const done = button("Done", "Leave drawing mode", () => setDrawing(frame, false));
+  const undo = button(t("undo"), t("undoTitle"), () => annotator.undo());
+  const clear = button(t("clear"), t("clearTitle"), () => annotator.clear());
+  const done = button(t("done"), t("doneTitle"), () => setDrawing(frame, false));
   tools.append(...toolButtons, undo, clear, done);
   bar.appendChild(tools);
 
@@ -142,11 +143,11 @@ function drawbar(
     const form = document.createElement("form");
     form.className = "drawbar-ask";
     input = document.createElement("input");
-    input.placeholder = "Ask about your marks…";
+    input.placeholder = t("ask");
     input.addEventListener("keydown", (e) => e.stopPropagation());
     send = document.createElement("button");
     send.type = "submit";
-    send.textContent = "Send to AI";
+    send.textContent = t("send");
     form.append(input, send);
     form.addEventListener("submit", (event) => {
       event.preventDefault();
@@ -273,8 +274,8 @@ function stepper(
   onChange: () => void = () => {},
 ): HTMLElement {
   const panel = div("stepper");
-  const prev = button("‹", "Previous step", () => go(-1));
-  const next = button("›", "Next step", () => go(1));
+  const prev = button("‹", t("previous"), () => go(-1));
+  const next = button("›", t("next"), () => go(1));
   const body = div("step-body");
   const dots = div("step-dots");
   panel.append(prev, body, next);
@@ -292,7 +293,7 @@ function stepper(
     if (index === undefined) {
       const start = document.createElement("button");
       start.className = "start";
-      start.textContent = `Walk through ${scene.steps.length} steps  ›`;
+      start.textContent = `${t("walk", { n: scene.steps.length })}  ›`;
       start.onclick = () => go(1);
       body.appendChild(start);
     } else {
